@@ -1,0 +1,16 @@
+version: '3'
+services:
+  web:
+    build: .
+    ports:
+      - "1323:1323"
+    depends_on:
+      - db
+      - logspout
+  db:
+    image: mongo
+  logspout:
+    image: gliderlabs/logspout
+    command: "syslog+tls://logs6.papertrailapp.com:21510"
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock"
